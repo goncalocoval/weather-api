@@ -1,0 +1,16 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-weather-api
+    ports:
+      - "6379:6379"
+
+  weather-api:
+    build: .
+    container_name: weather-api
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_REDIS_HOST=redis
+    depends_on:
+      - redis
